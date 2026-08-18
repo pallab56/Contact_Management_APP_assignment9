@@ -22,16 +22,16 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       drawer: _drawer(context),
       body: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: EdgeInsets.all(12),
         child: Column(
           children: [
             Container(
-              margin: EdgeInsets.all(MediaQuery.sizeOf(context).height * .02),
-              height: MediaQuery.sizeOf(context).height *.06,
+              // margin: EdgeInsets.all(MediaQuery.sizeOf(context).height * .01),
+              height: MediaQuery.sizeOf(context).height * .06,
               width: double.infinity,
               child: TextFormField(
-                onTapOutside: (event) => 
-                FocusManager.instance.primaryFocus!.unfocus(),
+                onTapOutside: (event) =>
+                    FocusManager.instance.primaryFocus!.unfocus(),
                 controller: searchController,
                 decoration: InputDecoration(
                   hintText: 'Search contacts...',
@@ -45,13 +45,24 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10),
-                    borderSide: BorderSide(color: Colors.pink.shade300, width: 2),
+                    borderSide: BorderSide(
+                      color: Colors.pink.shade300,
+                      width: 2,
+                    ),
                   ),
                 ),
               ),
             ),
           ],
         ),
+      ),
+
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.pushNamed(context, '/addscreen');
+        },
+        backgroundColor: Color(0XFF5555d9),
+        child: Icon(Icons.add, color: Colors.white),
       ),
     );
   }

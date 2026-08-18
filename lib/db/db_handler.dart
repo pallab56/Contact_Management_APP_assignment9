@@ -52,13 +52,7 @@ class DbHandler {
 
   Future<int> addContact(ContactModel contactModel) async {
     final db = await database;
-    return await db.insert(contactTableName, {
-      contactNameColumnName: contactModel.name,
-      contactNumberColumnName: contactModel.number,
-      contactEmailColumnName: contactModel.email,
-      contactAddressColumnName: contactModel.address,
-      contactFavoriteColumnName: contactModel.isFavourite,
-    });
+    return await db.insert(contactTableName, contactModel.toMap());
   }
 
   Future<List<ContactModel>> getContacts() async {
@@ -82,6 +76,6 @@ class DbHandler {
     List<ContactModel> list = data
         .map((e) => ContactModel.fromMap(e))
         .toList();
-    return list;
+    return list; 
   }
 }

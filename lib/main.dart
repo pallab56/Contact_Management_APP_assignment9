@@ -1,3 +1,4 @@
+import 'package:assignment9/screens/add_screen.dart';
 import 'package:assignment9/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -23,7 +24,12 @@ class MyApp extends StatelessWidget {
         ),
         scaffoldBackgroundColor: Color(0XFFfdfdfd),
       ),
-      home: HomeScreen(),
+      initialRoute: '/homescreen',
+      routes: {
+        '/homescreen':(context) => HomeScreen(),
+        '/addscreen':(context) => AddScreen(),
+
+      },
     );
   }
 }
