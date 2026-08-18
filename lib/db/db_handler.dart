@@ -1,3 +1,4 @@
+import 'package:assignment9/model/contact_model.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
@@ -14,7 +15,7 @@ class DbHandler {
   final String contactAddressColumnName = 'address';
   final String contactFavoriteColumnName = 'isFavorite';
   DbHandler._constructor();
-  
+
   Database? db;
   Future<Database> get database async {
     if (db != null) {
@@ -47,5 +48,16 @@ class DbHandler {
       },
     );
     return database;
+  }
+
+  Future<int> addContact(ContactModel contactModel) async {
+    final db = await database;
+    return  await  db.insert(contactTableName, {
+      contactNameColumnName: contactModel.name,
+      contactNumberColumnName:contactModel.number,
+      contactEmailColumnName:contactModel.email,
+      contactAddressColumnName:contactModel.address,
+      contactFavoriteColumnName:contactModel.isFavourite,
+      });
   }
 }
