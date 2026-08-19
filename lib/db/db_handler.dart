@@ -17,7 +17,7 @@ class DbHandler {
   DbHandler._constructor();
 
   Database? db;
-  Future<Database> get database async {
+  Future<Database?> get database async {
     if (db != null) {
       return db!;
     }
@@ -52,12 +52,18 @@ class DbHandler {
 
   Future<int> addContact(ContactModel contactModel) async {
     final db = await database;
-    return await db.insert(contactTableName, contactModel.toMap());
+    return await db!.insert(contactTableName, {
+      contactNameColumnName: contactModel.name,
+      contactNumberColumnName: contactModel.number,
+      contactEmailColumnName: contactModel.email,
+      contactAddressColumnName: contactModel.address,
+      contactFavoriteColumnName: contactModel.isFavorite,
+    });
   }
 
   Future<List<ContactModel>> getContacts() async {
     final db = await database;
-    final data = await db.query(contactTableName);
+    final data = await db!.query(contactTableName);
 
     List<ContactModel> list = data.map((e) => ContactModel.fromMap(e)).toList();
 
@@ -67,15 +73,13 @@ class DbHandler {
   Future<List<ContactModel>> getFavourites() async {
     final db = await database;
 
-    final data = await db.query(
+    final data = await db!.query(
       contactTableName,
       where: '$contactFavoriteColumnName = ?',
       whereArgs: [1],
     );
 
-    List<ContactModel> list = data
-        .map((e) => ContactModel.fromMap(e))
-        .toList();
-    return list; 
+    List<ContactModel> list = data.map((e) => ContactModel.fromMap(e)).toList();
+    return list;
   }
 }

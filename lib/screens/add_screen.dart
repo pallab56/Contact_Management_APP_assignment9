@@ -1,4 +1,5 @@
 import 'package:assignment9/db/db_handler.dart';
+import 'package:assignment9/model/contact_model.dart';
 import 'package:assignment9/screens/widgets/custom_button.dart';
 import 'package:assignment9/screens/widgets/custom_text_field.dart';
 import 'package:flutter/material.dart';
@@ -16,7 +17,9 @@ class _AddScreenState extends State<AddScreen> {
   final emailController = TextEditingController();
   final addressController = TextEditingController();
 
-  DbHandler instance = DbHandler.instance;
+  final _formKey = GlobalKey<FormState>();
+
+  DbHandler dbInstance = DbHandler.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -52,38 +55,55 @@ class _AddScreenState extends State<AddScreen> {
   }
 
   Widget _addContactForm(BuildContext context) {
-    return Column(
-      children: [
-        CustomTextField(
-          label: 'Name',
-          controller: nameController,
-          icon: Icon(Icons.person_outline_outlined),
-        ),
-
-        CustomTextField(
-          label: 'Phone Number',
-          controller: phoneController,
-          icon: Icon(Icons.call),
-        ),
-
-        CustomTextField(
-          label: 'Email',
-          controller: emailController,
-          icon: Icon(Icons.mail_outline_outlined),
-        ),
-
-        CustomTextField(
-          label: 'Address',
-          controller: addressController,
-          icon: Icon(Icons.location_on),
-        ),
-        SizedBox(height: MediaQuery.sizeOf(context).height * 0.02),
-        CustomButton(title: 'Save Contact',
-        ontap: () {
-          
-        },
-        ),
-      ],
+    return Form(
+      key: _formKey,
+      child: Column(
+        children: [
+          CustomTextField(
+            label: 'Name',
+            controller: nameController,
+            icon: Icon(Icons.person_outline_outlined),
+          ),
+      
+          CustomTextField(
+            label: 'Phone Number',
+            controller: phoneController,
+            icon: Icon(Icons.call),
+          ),
+      
+          CustomTextField(
+            label: 'Email',
+            controller: emailController,
+            icon: Icon(Icons.mail_outline_outlined),
+          ),
+      
+          CustomTextField(
+            label: 'Address',
+            controller: addressController,
+            icon: Icon(Icons.location_on),
+          ),
+          SizedBox(height: MediaQuery.sizeOf(context).height * 0.02),
+          CustomButton(
+            title: 'Save Contact',
+            ontap: () async {
+              if(_formKey.currentState!.validate())
+              {
+                final id = await dbInstance.addContact(
+                ContactModel(
+                  name: nameController.text.trim(),
+                  email: emailController.text.trim(),
+                  number: phoneController.text.trim(),
+                  address: addressController.text.trim(),
+                ),
+              );
+              ScaffoldMessenger.of(
+                context,
+              ).showSnackBar(SnackBar(content: Text('$id added Successfully!')));
+              }   
+            },
+          ),
+        ],
+      ),
     );
   }
 }

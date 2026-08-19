@@ -7,14 +7,14 @@ class ContactModel {
   final String email;
   final String number;
   final String address;
-  final int isFavourite;
+  final int isFavorite;
   ContactModel({
     this.id,
     required this.name,
     required this.email,
     required this.number,
     required this.address,
-    this.isFavourite = 0,
+    this.isFavorite = 0,
   });
 
   ContactModel copyWith({
@@ -23,7 +23,7 @@ class ContactModel {
     String? email,
     String? number,
     String? address,
-    int? isFavourite,
+    int? isFavorite,
   }) {
     return ContactModel(
       id: id ?? this.id,
@@ -31,7 +31,7 @@ class ContactModel {
       email: email ?? this.email,
       number: number ?? this.number,
       address: address ?? this.address,
-      isFavourite: isFavourite ?? this.isFavourite,
+      isFavorite: isFavorite ?? this.isFavorite,
     );
   }
 
@@ -42,10 +42,10 @@ class ContactModel {
       'email': email,
       'number': number,
       'address': address,
-      'isFavourite': isFavourite,
+      'isFavorite': isFavorite,
     };
   }
-
+ 
   factory ContactModel.fromMap(Map<String, dynamic> map) {
     return ContactModel(
       id: map['id'] != null ? map['id'] as int : null,
@@ -53,7 +53,7 @@ class ContactModel {
       email: map['email'] as String,
       number: map['number'] as String,
       address: map['address'] as String,
-      isFavourite: map['isFavourite'] as int,
+      isFavorite: map['isFavorite'] as int,
     );
   }
 
@@ -64,29 +64,28 @@ class ContactModel {
 
   @override
   String toString() {
-    return 'ContactModel(id: $id, name: $name, email: $email, number: $number, address: $address, isFavourite: $isFavourite)';
+    return 'ContactModel(id: $id, name: $name, email: $email, number: $number, address: $address, isFavorite: $isFavorite)';
   }
 
   @override
   bool operator ==(covariant ContactModel other) {
     if (identical(this, other)) return true;
-  
-    return 
-      other.id == id &&
-      other.name == name &&
-      other.email == email &&
-      other.number == number &&
-      other.address == address &&
-      other.isFavourite == isFavourite;
+
+    return other.id == id &&
+        other.name == name &&
+        other.email == email &&
+        other.number == number &&
+        other.address == address &&
+        other.isFavorite == isFavorite;
   }
 
   @override
   int get hashCode {
     return id.hashCode ^
-      name.hashCode ^
-      email.hashCode ^
-      number.hashCode ^
-      address.hashCode ^
-      isFavourite.hashCode;
+        name.hashCode ^
+        email.hashCode ^
+        number.hashCode ^
+        address.hashCode ^
+        isFavorite.hashCode;
   }
 }
