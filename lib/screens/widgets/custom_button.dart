@@ -4,11 +4,8 @@ import 'package:flutter/material.dart';
 class CustomButton extends StatelessWidget {
   final String title;
   final VoidCallback ontap;
-  const CustomButton({
-    super.key,
-    required this.title,
-    required this.ontap,
-  }) ;
+  final bool isEdit;
+  const CustomButton({super.key, this.isEdit = false, required this.title, required this.ontap});
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +24,7 @@ class CustomButton extends StatelessWidget {
         ),
         onPressed: ontap,
 
-        child: Text(
+        child:isEdit? Center(child: Icon(Icons.check_outlined,size: 18,color: Colors.white,),):Text(
           title,
           style: TextStyle(
             fontSize: 18,

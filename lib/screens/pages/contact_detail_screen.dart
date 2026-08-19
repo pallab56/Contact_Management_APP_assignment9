@@ -1,4 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:assignment9/screens/pages/edit_contact_screen.dart';
 import 'package:assignment9/utils/utils.dart';
 import 'package:flutter/material.dart';
 
@@ -13,6 +14,8 @@ class ContactDetailScreen extends StatefulWidget {
 }
 
 class _ContactDetailScreenState extends State<ContactDetailScreen> {
+  
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(appBar: _appBar(context), body: _bodyUi(context));
@@ -22,7 +25,18 @@ class _ContactDetailScreenState extends State<ContactDetailScreen> {
     return AppBar(
       title: Text('ConatactDetail'),
       actions: [
-        IconButton(onPressed: () {}, icon: Icon(Icons.edit_outlined)),
+        IconButton(
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) =>
+                    EditContactScreen(contact: widget.contact),
+              ),
+            );
+          },
+          icon: Icon(Icons.edit_outlined),
+        ),
         IconButton(onPressed: () {}, icon: Icon(Icons.delete_outlined)),
       ],
     );

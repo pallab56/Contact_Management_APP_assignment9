@@ -85,8 +85,23 @@ class DbHandler {
 
   Future<void> updateFavorite(ContactModel contactmodel) async {
     final db = await database;
+    await db!.update(
+      contactTableName,
+      {contactFavoriteColumnName: contactmodel.isFavorite},
+      where: '$contactIdColumnName = ?',
+      whereArgs: [contactmodel.id],
+    );
+  }
+
+  Future<void> updateContacts(ContactModel contactmodel) async {
+    final db = await database;
     await db!.update(contactTableName, {
-      contactFavoriteColumnName: contactmodel.isFavorite,
+      contactIdColumnName:contactmodel.id,
+      contactNameColumnName: contactmodel.name,
+      contactNumberColumnName: contactmodel.number,
+      contactEmailColumnName: contactmodel.email,
+      contactAddressColumnName: contactmodel.address,
+      contactFavoriteColumnName:contactmodel.isFavorite
     },
     where: '$contactIdColumnName = ?',
     whereArgs: [contactmodel.id]

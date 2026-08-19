@@ -64,19 +64,19 @@ class _AddScreenState extends State<AddScreen> {
             controller: nameController,
             icon: Icon(Icons.person_outline_outlined),
           ),
-      
+
           CustomTextField(
             label: 'Phone Number',
             controller: phoneController,
             icon: Icon(Icons.call),
           ),
-      
+
           CustomTextField(
             label: 'Email',
             controller: emailController,
             icon: Icon(Icons.mail_outline_outlined),
           ),
-      
+
           CustomTextField(
             label: 'Address',
             controller: addressController,
@@ -86,20 +86,24 @@ class _AddScreenState extends State<AddScreen> {
           CustomButton(
             title: 'Save Contact',
             ontap: () async {
-              if(_formKey.currentState!.validate())
-              {
+              if (_formKey.currentState!.validate()) {
                 final id = await dbInstance.addContact(
-                ContactModel(
-                  name: nameController.text.trim(),
-                  email: emailController.text.trim(),
-                  number: phoneController.text.trim(),
-                  address: addressController.text.trim(),
-                ),
-              );
-              ScaffoldMessenger.of(
-                context,
-              ).showSnackBar(SnackBar(content: Text('$id added Successfully!')));
-              }   
+                  ContactModel(
+                    name: nameController.text.trim(),
+                    email: emailController.text.trim(),
+                    number: phoneController.text.trim(),
+                    address: addressController.text.trim(),
+                  ),
+                );
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(content: Text('$id added Successfully!')),
+                );
+                nameController.clear();
+                phoneController.clear();
+                emailController.clear();
+                addressController.clear();
+                Navigator.pop(context);
+              }
             },
           ),
         ],
