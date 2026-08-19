@@ -1,5 +1,6 @@
-import 'package:assignment9/screens/add_screen.dart';
-import 'package:assignment9/screens/home_screen.dart';
+import 'package:assignment9/screens/pages/add_screen.dart';
+import 'package:assignment9/screens/pages/contact_detail_screen.dart';
+import 'package:assignment9/screens/pages/home_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -28,6 +29,7 @@ class MyApp extends StatelessWidget {
       routes: {
         '/homescreen':(context) => HomeScreen(),
         '/addscreen':(context) => AddScreen(),
+        
 
       },
     );
