@@ -1,9 +1,11 @@
-import 'package:assignment9/db/db_handler.dart';
-import 'package:assignment9/model/contact_model.dart';
+import 'package:assignment9/screens/widgets/contact_listile.dart';
 import 'package:flutter/material.dart';
 
+import 'package:assignment9/db/db_handler.dart';
+import 'package:assignment9/model/contact_model.dart';
+
 class HomeScreen extends StatefulWidget {
-  const new({super.key});
+  const HomeScreen({super.key});
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -11,9 +13,16 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   int selectedIndex = 0;
+
   final searchController = TextEditingController();
 
   final dbInstance = DbHandler.instance;
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -55,65 +64,20 @@ class _HomeScreenState extends State<HomeScreen> {
           if (snapshot.hasError) {
             return Center(child: Text(snapshot.error.toString()));
           }
-          if (!snapshot.hasData && snapshot.data!.isEmpty) {
+          if (!snapshot.hasData || snapshot.data!.isEmpty) {
             return Center(child: Text('Nothing to show'));
           }
           return ListView.builder(
             itemCount: snapshot.data!.length,
             itemBuilder: (context, index) {
               final data = snapshot.data![index];
-              final avatarName = _getNameInitials(data.name);
-              final avatarBacgroundColor = _getAvatarColor(data.name);
-              return ListTile(
-                title: Text(data.name),
-                subtitle: Text(data.number),
-                leading: CircleAvatar(
-                  backgroundColor: avatarBacgroundColor,
-                  child: Text(avatarName,
-                  style: TextStyle(color: Colors.white,
-                  fontSize: 18,
-                  fontWeight: FontWeight.w600),
-                  ),),
-                trailing: IconButton(
-                  onPressed: (){
-                    
-                  },
-                  icon:data.isFavorite == 1 ? Icon(Icons.star,color: Colors.amber,) :Icon(Icons.star_border_outlined),
-                  ),
-              );
+
+              return ContactTile(contact: data);
             },
           );
         },
       ),
     );
-  }
-
-  Color _getAvatarColor(String name) {
-    final colors = [
-      Colors.purple,
-      Colors.teal,
-      Colors.orange,
-      Colors.pink,
-      Colors.green,
-      Colors.indigo,
-      
-    ];
-
-    final index = name.hashCode % colors.length;
-
-    return colors[index.abs()];
-  }
-
-  String _getNameInitials(String name) {
-    final parts = name.trim().split(' ');
-
-    if (parts.length == 1) {
-      return parts[0][0].toUpperCase();
-    }
-
-    final first = parts.first[0];
-    final second = parts[1][0];
-    return (first + second).toUpperCase();
   }
 
   Widget _searchUi(BuildContext context) {
@@ -257,3 +221,5 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 }
+
+

@@ -82,4 +82,14 @@ class DbHandler {
     List<ContactModel> list = data.map((e) => ContactModel.fromMap(e)).toList();
     return list;
   }
+
+  Future<void> updateFavorite(ContactModel contactmodel) async {
+    final db = await database;
+    await db!.update(contactTableName, {
+      contactFavoriteColumnName: contactmodel.isFavorite,
+    },
+    where: '$contactIdColumnName = ?',
+    whereArgs: [contactmodel.id]
+    );
+  }
 }
