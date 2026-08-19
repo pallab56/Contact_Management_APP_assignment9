@@ -1,24 +1,33 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:flutter/material.dart';
+
 import 'package:assignment9/db/db_handler.dart';
 import 'package:assignment9/model/contact_model.dart';
 import 'package:assignment9/screens/pages/contact_detail_screen.dart';
 import 'package:assignment9/utils/utils.dart';
-import 'package:flutter/material.dart';
 
 class ContactTile extends StatefulWidget {
+  final bool isCallFromFavourite;
   final ContactModel contact;
-  const ContactTile({super.key, required this.contact});
+  const ContactTile({
+    super.key,
+     this.isCallFromFavourite =false,
+    required this.contact,
+  }) ;
 
   @override
   State<ContactTile> createState() => _ContactTileState();
 }
 
 class _ContactTileState extends State<ContactTile> {
+  
   late int _isFavourite;
   @override
   void initState() {
     super.initState();
     _isFavourite = widget.contact.isFavorite;
   }
+
   Future<void> _toggleFavourite() async {
     final newValue = _isFavourite == 0 ? 1 : 0;
     setState(() {
@@ -54,11 +63,14 @@ class _ContactTileState extends State<ContactTile> {
                 ? Icon(Icons.star, color: Colors.amber)
                 : Icon(Icons.star_border_outlined),
           ),
-          IconButton(
+          widget.isCallFromFavourite ? SizedBox():IconButton(
             onPressed: () {
-              Navigator.push(context, 
-              MaterialPageRoute(builder:
-              (context)=>ContactDetailScreen(contact: data)));
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => ContactDetailScreen(contact: data),
+                ),
+              );
             },
             icon: Icon(Icons.navigate_next_outlined),
           ),

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:assignment9/model/contact_model.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
@@ -17,6 +19,16 @@ class DbHandler {
   DbHandler._constructor();
 
   Database? db;
+
+  // final _contactsController = StreamController<List<ContactModel>>.broadcast();
+  // Stream<List<ContactModel>> get contactsStream => _contactsController.stream; // CHANGED
+
+  // // CHANGED: call this any time the underlying data changes
+  // Future<void> _pushUpdatedContacts() async {
+  //   final contacts = await getContacts();
+  //   _contactsController.add(contacts); // pushes new data into the pipe
+  // }
+
   Future<Database?> get database async {
     if (db != null) {
       return db!;
@@ -52,6 +64,8 @@ class DbHandler {
 
   Future<int> addContact(ContactModel contactModel) async {
     final db = await database;
+    // await _pushUpdatedContacts(); // CHANGED
+
     return await db!.insert(contactTableName, {
       contactNameColumnName: contactModel.name,
       contactNumberColumnName: contactModel.number,
@@ -91,20 +105,34 @@ class DbHandler {
       where: '$contactIdColumnName = ?',
       whereArgs: [contactmodel.id],
     );
+    // await _pushUpdatedContacts(); // CHANGED
   }
 
   Future<void> updateContacts(ContactModel contactmodel) async {
     final db = await database;
-    await db!.update(contactTableName, {
-      contactIdColumnName:contactmodel.id,
-      contactNameColumnName: contactmodel.name,
-      contactNumberColumnName: contactmodel.number,
-      contactEmailColumnName: contactmodel.email,
-      contactAddressColumnName: contactmodel.address,
-      contactFavoriteColumnName:contactmodel.isFavorite
-    },
-    where: '$contactIdColumnName = ?',
-    whereArgs: [contactmodel.id]
+    await db!.update(
+      contactTableName,
+      {
+        contactIdColumnName: contactmodel.id,
+        contactNameColumnName: contactmodel.name,
+        contactNumberColumnName: contactmodel.number,
+        contactEmailColumnName: contactmodel.email,
+        contactAddressColumnName: contactmodel.address,
+        contactFavoriteColumnName: contactmodel.isFavorite,
+      },
+      where: '$contactIdColumnName = ?',
+      whereArgs: [contactmodel.id],
+    );
+    // CHANGED
+  }
+
+  Future<void> deleteContact(ContactModel contact) async {
+    final db = await database;
+
+    await db!.delete(
+      contactTableName,
+      where: '$contactIdColumnName = ?',
+      whereArgs: [contact.id],
     );
   }
 }

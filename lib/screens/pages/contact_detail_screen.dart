@@ -1,4 +1,4 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:assignment9/db/db_handler.dart';
 import 'package:assignment9/screens/pages/edit_contact_screen.dart';
 import 'package:assignment9/utils/utils.dart';
 import 'package:flutter/material.dart';
@@ -14,11 +14,10 @@ class ContactDetailScreen extends StatefulWidget {
 }
 
 class _ContactDetailScreenState extends State<ContactDetailScreen> {
-  
-  
   @override
   Widget build(BuildContext context) {
-    return Scaffold(appBar: _appBar(context), body: _bodyUi(context));
+    return Scaffold(appBar: _appBar(context), 
+    body: _bodyUi(context));
   }
 
   PreferredSizeWidget _appBar(BuildContext context) {
@@ -37,8 +36,109 @@ class _ContactDetailScreenState extends State<ContactDetailScreen> {
           },
           icon: Icon(Icons.edit_outlined),
         ),
-        IconButton(onPressed: () {}, icon: Icon(Icons.delete_outlined)),
+        IconButton(
+          onPressed: _deleteDialogShow,
+          icon: Icon(Icons.delete_outlined),
+        ),
       ],
+    );
+  }
+
+  void _deleteDialogShow() async {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            CircleAvatar(
+              radius: 32,
+              backgroundColor: Colors.red.shade200.withAlpha(50),
+              child: Icon(
+                Icons.delete,
+                size: 36,
+                color: Colors.red,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            SizedBox(height: MediaQuery.sizeOf(context).height * .02),
+            Text(
+              'Delete Contact',
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            ),
+            SizedBox(height: MediaQuery.sizeOf(context).height * .02),
+            RichText(
+              textAlign: TextAlign.center,
+              text: TextSpan(
+                style: TextStyle(color: Colors.black),
+
+                children: [
+                  TextSpan(text: 'Are you sure you want to delete\n'),
+
+                  TextSpan(
+                    text: '${widget.contact.name}?',
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+        actions: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              MaterialButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadiusGeometry.circular(10),
+                  side: BorderSide(color: Colors.black.withAlpha(50)),
+                ),
+                child: Text('Cancel'),
+              ),
+              MaterialButton(
+                onPressed: () async {
+                  await DbHandler.instance
+                      .deleteContact(widget.contact)
+                      .then((value) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text(
+                              'The ${widget.contact.id} Contacts deleted Succesfully',
+                            ),
+                          ),
+                        );
+                      })
+                      .onError((error, stacktrace) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content:Text(
+                              'The ${widget.contact.id} Can not ${error}',
+                            ),
+                          ),
+                        );
+                      });
+                  Navigator.pop(context);
+                },
+                color: Colors.red.withAlpha(255),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadiusGeometry.circular(10),
+                  side: BorderSide(color: Colors.black.withAlpha(50)),
+                ),
+                child: Text(
+                  'Delete',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
     );
   }
 

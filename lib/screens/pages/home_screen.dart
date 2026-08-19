@@ -67,10 +67,24 @@ class _HomeScreenState extends State<HomeScreen> {
           if (!snapshot.hasData || snapshot.data!.isEmpty) {
             return Center(child: Text('Nothing to show'));
           }
+
+          final query = searchController.text.toLowerCase().trim();
+
+          final filteredContacts = query.isEmpty
+              ? snapshot.data!
+              : snapshot.data!
+                    .where(
+                      (contact) =>
+                          contact.name.trim().toLowerCase().contains(query),
+                    )
+                    .toList();
+          if (filteredContacts.isEmpty) {
+            return Center(child: Text('Nothing Matched'));
+          }
           return ListView.builder(
-            itemCount: snapshot.data!.length,
+            itemCount: filteredContacts.length,
             itemBuilder: (context, index) {
-              final data = snapshot.data![index];
+              final data = filteredContacts[index];
 
               return ContactTile(contact: data);
             },
@@ -88,6 +102,12 @@ class _HomeScreenState extends State<HomeScreen> {
       child: TextFormField(
         onTapOutside: (event) => FocusManager.instance.primaryFocus!.unfocus(),
         controller: searchController,
+        onChanged: (value) {
+          searchController.text = value;
+          setState(() {
+            
+          });
+        },
         decoration: InputDecoration(
           hintText: 'Search contacts...',
           suffixIcon: Icon(Icons.search_rounded),
@@ -168,6 +188,8 @@ class _HomeScreenState extends State<HomeScreen> {
               setState(() {
                 selectedIndex = 1;
               });
+
+              Navigator.pushNamed(context, '/favoutite');
             },
           ),
           ListTile(
@@ -175,6 +197,9 @@ class _HomeScreenState extends State<HomeScreen> {
             title: Text('Add Contacts'),
             selected: selectedIndex == 2,
             selectedTileColor: Colors.blueAccent[100]!.withAlpha(70),
+            onLongPress: () {
+              Navigator.pop(context);
+            },
             onTap: () {
               setState(() {
                 selectedIndex = 2;
@@ -202,6 +227,7 @@ class _HomeScreenState extends State<HomeScreen> {
               setState(() {
                 selectedIndex = 4;
               });
+              Navigator.pushNamed(context, '/settings');
             },
           ),
           ListTile(
@@ -221,5 +247,3 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 }
-
-
