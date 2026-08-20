@@ -9,18 +9,19 @@ import 'package:assignment9/utils/utils.dart';
 class ContactTile extends StatefulWidget {
   final bool isCallFromFavourite;
   final ContactModel contact;
+  final VoidCallback onTap;
   const ContactTile({
     super.key,
-     this.isCallFromFavourite =false,
+    this.isCallFromFavourite = false,
     required this.contact,
-  }) ;
+    required this.onTap
+  });
 
   @override
   State<ContactTile> createState() => _ContactTileState();
 }
 
 class _ContactTileState extends State<ContactTile> {
-  
   late int _isFavourite;
   @override
   void initState() {
@@ -63,17 +64,12 @@ class _ContactTileState extends State<ContactTile> {
                 ? Icon(Icons.star, color: Colors.amber)
                 : Icon(Icons.star_border_outlined),
           ),
-          widget.isCallFromFavourite ? SizedBox():IconButton(
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => ContactDetailScreen(contact: data),
+          widget.isCallFromFavourite
+              ? SizedBox()
+              : IconButton(
+                  onPressed: widget.onTap,
+                  icon: Icon(Icons.navigate_next_outlined),
                 ),
-              );
-            },
-            icon: Icon(Icons.navigate_next_outlined),
-          ),
         ],
       ),
     );

@@ -50,6 +50,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
             ),
             leading: Icon(Icons.palette_outlined),
             trailing: Switch(
+              inactiveTrackColor:  Colors.deepPurpleAccent,
+              inactiveThumbColor: Colors.white,
+              trackOutlineWidth: MaterialStatePropertyAll(0),
+              
               overlayColor: WidgetStatePropertyAll(Colors.blue),
               value: isSwitchOn,
               onChanged: (value) {

@@ -1,3 +1,4 @@
+import 'package:assignment9/screens/pages/contact_detail_screen.dart';
 import 'package:assignment9/screens/widgets/contact_listile.dart';
 import 'package:flutter/material.dart';
 
@@ -12,6 +13,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  late Future<List<ContactModel>> _contacctFuture;
   int selectedIndex = 0;
 
   final searchController = TextEditingController();
@@ -21,6 +23,13 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
+    _contacctFuture = dbInstance.getContacts();
+  }
+
+  void _refreshContacts() {
+    setState(() {
+      _contacctFuture = dbInstance.getContacts();
+    });
   }
 
   @override
@@ -29,7 +38,7 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(
         title: Text('My Contacts'),
         actions: [
-          IconButton(onPressed: () {}, icon: Icon(Icons.search_rounded)),
+          // IconButton(onPressed: () {}, icon: Icon(Icons.search_rounded)),
           IconButton(onPressed: () {}, icon: Icon(Icons.more_vert)),
         ],
       ),
@@ -37,8 +46,9 @@ class _HomeScreenState extends State<HomeScreen> {
       body: _bodyUi(context),
 
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.pushNamed(context, '/addscreen');
+        onPressed: ()async {
+          await Navigator.pushNamed(context, '/addscreen');
+          _refreshContacts();
         },
         backgroundColor: Color(0XFF5555d9),
         child: Icon(Icons.add, color: Colors.white),
@@ -56,7 +66,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget _showContactList(BuildContext context) {
     return Expanded(
       child: FutureBuilder(
-        future: dbInstance.getContacts(),
+        future: _contacctFuture,
         builder: (context, AsyncSnapshot<List<ContactModel>> snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return CircularProgressIndicator();
@@ -70,21 +80,22 @@ class _HomeScreenState extends State<HomeScreen> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 SizedBox(height: MediaQuery.sizeOf(context).height * .12),
-               Container(
-                height: MediaQuery.sizeOf(context).height * .25,
-                width: MediaQuery.sizeOf(context).width * .7,
-                decoration: BoxDecoration(
-                  color: Colors.teal.shade200.withAlpha(22),
-                  borderRadius: BorderRadius.circular(10),
-                  border: Border.all(
-                    color: Colors.black12,
-                    width: 2,
+                Container(
+                  height: MediaQuery.sizeOf(context).height * .25,
+                  width: MediaQuery.sizeOf(context).width * .7,
+                  decoration: BoxDecoration(
+                    color: Colors.teal.shade200.withAlpha(22),
+                    borderRadius: BorderRadius.circular(10),
+                    border: Border.all(color: Colors.black12, width: 2),
+                  ),
+                  child: Center(
+                    child: Image.asset(
+                      'assets/newContact.png',
+                      height: 175,
+                      width: 400,
+                    ),
                   ),
                 ),
-                child:  Center(
-                  child: Image.asset('assets/newContact.png',height: 175,width: 400,),
-                ),
-               ),
                 SizedBox(height: 12),
                 RichText(
                   textAlign: TextAlign.center,
@@ -99,8 +110,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                       ),
                       TextSpan(
-                        text:
-                            'Add Your First Contacts\n By Tapping..\n',
+                        text: 'Add Your First Contacts\n By Tapping..\n',
                         style: TextStyle(
                           fontSize: 22,
                           fontWeight: FontWeight.w300,
@@ -132,7 +142,18 @@ class _HomeScreenState extends State<HomeScreen> {
             itemBuilder: (context, index) {
               final data = filteredContacts[index];
 
-              return ContactTile(contact: data);
+              return ContactTile(
+                contact: data,
+                onTap: () async {
+                  await Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => ContactDetailScreen(contact: data),
+                    ),
+                  );
+                  _refreshContacts();
+                },
+              );
             },
           );
         },

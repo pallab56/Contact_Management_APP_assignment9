@@ -109,16 +109,16 @@ class _EditContactScreenState extends State<EditContactScreen> {
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              Text('Do you want it to be favourite',
-              style: TextStyle(color: Colors.black,fontSize: 12),),
+              Text(
+                'Do you want it to be favourite',
+                style: TextStyle(color: Colors.black, fontSize: 12),
+              ),
               SizedBox(width: 5),
               Checkbox(
                 value: wantToFavourite,
                 onChanged: (onChanged) {
                   wantToFavourite = onChanged!;
-                  setState(() {
-                    
-                  });
+                  setState(() {});
                 },
               ),
             ],
@@ -129,16 +129,16 @@ class _EditContactScreenState extends State<EditContactScreen> {
             title: 'Edit Contact',
             ontap: () async {
               if (_formKey.currentState!.validate()) {
-                await dbInstance.updateContacts(
-                  widget.contact.copyWith(
-                    name: nameController.text.trim(),
-                    email: emailController.text.trim(),
-                    number: phoneController.text.trim(),
-                    address: addressController.text.trim(),
-                    isFavorite: wantToFavourite?1:0,
-                    id: widget.contact.id
-                  ),
+                final updateContacts = widget.contact.copyWith(
+                  name: nameController.text.trim(),
+                  email: emailController.text.trim(),
+                  number: phoneController.text.trim(),
+                  address: addressController.text.trim(),
+                  isFavorite: wantToFavourite ? 1 : 0,
+                  id: widget.contact.id,
                 );
+
+                await dbInstance.updateContacts(updateContacts);
 
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(
@@ -149,6 +149,7 @@ class _EditContactScreenState extends State<EditContactScreen> {
                 setState(() {
                   isEdited = true;
                 });
+                if (mounted) Navigator.pop(context, updateContacts);
               }
             },
           ),

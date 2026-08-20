@@ -73,7 +73,9 @@ class _FavouriteScreenState extends State<FavouriteScreen> {
             itemCount: snapshot.data!.length,
             itemBuilder: (context, index) {
               final data = snapshot.data![index];
-              return ContactTile(contact: data ,isCallFromFavourite: true,);
+              return ContactTile(contact: data ,isCallFromFavourite: true,
+              onTap:(){} ,
+              );
             },
           );
         },

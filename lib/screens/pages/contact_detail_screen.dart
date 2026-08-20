@@ -1,5 +1,6 @@
 import 'package:assignment9/db/db_handler.dart';
 import 'package:assignment9/screens/pages/edit_contact_screen.dart';
+import 'package:assignment9/screens/pages/home_screen.dart';
 import 'package:assignment9/utils/utils.dart';
 import 'package:flutter/material.dart';
 
@@ -14,10 +15,16 @@ class ContactDetailScreen extends StatefulWidget {
 }
 
 class _ContactDetailScreenState extends State<ContactDetailScreen> {
+  late ContactModel contact;
+  @override
+  void initState() {
+    super.initState();
+    contact = widget.contact;
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(appBar: _appBar(context), 
-    body: _bodyUi(context));
+    return Scaffold(appBar: _appBar(context), body: _bodyUi(context));
   }
 
   PreferredSizeWidget _appBar(BuildContext context) {
@@ -25,14 +32,19 @@ class _ContactDetailScreenState extends State<ContactDetailScreen> {
       title: Text('ConatactDetail'),
       actions: [
         IconButton(
-          onPressed: () {
-            Navigator.push(
+          onPressed: () async {
+            final result = await Navigator.push(
               context,
               MaterialPageRoute(
                 builder: (context) =>
-                    EditContactScreen(contact: widget.contact),
+                    EditContactScreen(contact: contact),
               ),
             );
+            if (result != null && result is ContactModel) {
+              setState(() {
+               contact = result;
+              });
+            }
           },
           icon: Icon(Icons.edit_outlined),
         ),
@@ -76,7 +88,7 @@ class _ContactDetailScreenState extends State<ContactDetailScreen> {
                   TextSpan(text: 'Are you sure you want to delete\n'),
 
                   TextSpan(
-                    text: '${widget.contact.name}?',
+                    text: '${contact.name}?',
                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
                   ),
                 ],
@@ -101,12 +113,12 @@ class _ContactDetailScreenState extends State<ContactDetailScreen> {
               MaterialButton(
                 onPressed: () async {
                   await DbHandler.instance
-                      .deleteContact(widget.contact)
+                      .deleteContact(contact)
                       .then((value) {
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
                             content: Text(
-                              'The ${widget.contact.id} Contacts deleted Succesfully',
+                              'The ${contact.id} Contacts deleted Succesfully',
                             ),
                           ),
                         );
@@ -114,13 +126,18 @@ class _ContactDetailScreenState extends State<ContactDetailScreen> {
                       .onError((error, stacktrace) {
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
-                            content:Text(
-                              'The ${widget.contact.id} Can not ${error}',
+                            content: Text(
+                              'The ${contact.id} Can not ${error}',
                             ),
                           ),
                         );
                       });
-                  Navigator.pop(context);
+                  if (mounted) {
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(builder: (context) => HomeScreen()),
+                    );
+                  }
                 },
                 color: Colors.red.withAlpha(255),
                 shape: RoundedRectangleBorder(
@@ -158,7 +175,7 @@ class _ContactDetailScreenState extends State<ContactDetailScreen> {
   }
 
   Widget _headerSection(BuildContext context) {
-    final data = widget.contact;
+    final data = contact;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
@@ -187,7 +204,7 @@ class _ContactDetailScreenState extends State<ContactDetailScreen> {
   }
 
   Widget _cardSection(BuildContext context) {
-    final data = widget.contact;
+    final data = contact;
     return Card(
       color: Colors.white,
 
