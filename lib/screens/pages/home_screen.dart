@@ -65,7 +65,53 @@ class _HomeScreenState extends State<HomeScreen> {
             return Center(child: Text(snapshot.error.toString()));
           }
           if (!snapshot.hasData || snapshot.data!.isEmpty) {
-            return Center(child: Text('Nothing to show'));
+            return Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                SizedBox(height: MediaQuery.sizeOf(context).height * .12),
+               Container(
+                height: MediaQuery.sizeOf(context).height * .25,
+                width: MediaQuery.sizeOf(context).width * .7,
+                decoration: BoxDecoration(
+                  color: Colors.teal.shade200.withAlpha(22),
+                  borderRadius: BorderRadius.circular(10),
+                  border: Border.all(
+                    color: Colors.black12,
+                    width: 2,
+                  ),
+                ),
+                child:  Center(
+                  child: Image.asset('assets/newContact.png',height: 175,width: 400,),
+                ),
+               ),
+                SizedBox(height: 12),
+                RichText(
+                  textAlign: TextAlign.center,
+                  text: TextSpan(
+                    children: [
+                      TextSpan(
+                        text: 'No Contacts yet!\n',
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      TextSpan(
+                        text:
+                            'Add Your First Contacts\n By Tapping..\n',
+                        style: TextStyle(
+                          fontSize: 22,
+                          fontWeight: FontWeight.w300,
+                          color: Colors.black.withAlpha(100),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            );
           }
 
           final query = searchController.text.toLowerCase().trim();
@@ -104,9 +150,7 @@ class _HomeScreenState extends State<HomeScreen> {
         controller: searchController,
         onChanged: (value) {
           searchController.text = value;
-          setState(() {
-            
-          });
+          setState(() {});
         },
         decoration: InputDecoration(
           hintText: 'Search contacts...',
@@ -177,6 +221,7 @@ class _HomeScreenState extends State<HomeScreen> {
               setState(() {
                 selectedIndex = 0;
               });
+              Navigator.pop(context);
             },
           ),
           ListTile(
@@ -197,13 +242,12 @@ class _HomeScreenState extends State<HomeScreen> {
             title: Text('Add Contacts'),
             selected: selectedIndex == 2,
             selectedTileColor: Colors.blueAccent[100]!.withAlpha(70),
-            onLongPress: () {
-              Navigator.pop(context);
-            },
+
             onTap: () {
               setState(() {
                 selectedIndex = 2;
               });
+              Navigator.pop(context);
             },
           ),
           Divider(),
@@ -216,6 +260,7 @@ class _HomeScreenState extends State<HomeScreen> {
               setState(() {
                 selectedIndex = 3;
               });
+              Navigator.pop(context);
             },
           ),
           ListTile(

@@ -30,7 +30,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
               'Theme',
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
-            subtitle: Text(
+            subtitle:isSwitchOn?Text(
+              'Dark',
+              style: TextStyle(color: Colors.black.withAlpha(100)),
+            )  :Text(
               'Light',
               style: TextStyle(color: Colors.black.withAlpha(100)),
             ),

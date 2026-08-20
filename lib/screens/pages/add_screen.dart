@@ -18,13 +18,24 @@ class _AddScreenState extends State<AddScreen> {
   final addressController = TextEditingController();
 
   final _formKey = GlobalKey<FormState>();
+  
 
   DbHandler dbInstance = DbHandler.instance;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Add Contact')),
+      appBar: AppBar(
+        title: Text('Add Contact'),
+        actions: [
+           CircleAvatar(
+                  backgroundColor: Colors.black12,
+                  child: Icon(Icons.check, color: Colors.white, size: 28),
+                ),
+              
+          SizedBox(width: 10),
+        ],
+      ),
       body: _bodyUi(context),
     );
   }
@@ -102,6 +113,7 @@ class _AddScreenState extends State<AddScreen> {
                 phoneController.clear();
                 emailController.clear();
                 addressController.clear();
+                
                 Navigator.pop(context);
               }
             },
