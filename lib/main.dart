@@ -1,5 +1,4 @@
 import 'package:assignment9/screens/pages/add_screen.dart';
-import 'package:assignment9/screens/pages/contact_detail_screen.dart';
 import 'package:assignment9/screens/pages/favourite_screen.dart';
 import 'package:assignment9/screens/pages/home_screen.dart';
 import 'package:assignment9/screens/pages/settings_screen.dart';

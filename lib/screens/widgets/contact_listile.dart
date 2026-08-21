@@ -1,9 +1,7 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 
 import 'package:assignment9/db/db_handler.dart';
 import 'package:assignment9/model/contact_model.dart';
-import 'package:assignment9/screens/pages/contact_detail_screen.dart';
 import 'package:assignment9/utils/utils.dart';
 
 class ContactTile extends StatefulWidget {

@@ -113,8 +113,8 @@ class _AddScreenState extends State<AddScreen> {
                 phoneController.clear();
                 emailController.clear();
                 addressController.clear();
-                
-                Navigator.pop(context);
+               
+                 Navigator.pop(context);
               }
             },
           ),
