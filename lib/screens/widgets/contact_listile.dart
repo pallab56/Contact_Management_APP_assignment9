@@ -46,7 +46,7 @@ class _ContactTileState extends State<ContactTile> {
         backgroundColor: Utils.getAvatarColor(data.name, context),
         child: Text(
           Utils.getNameInitials(data.name),
-          style: TextStyle(
+          style:const TextStyle(
             color: Colors.white,
             fontSize: 18,
             fontWeight: FontWeight.w600,
@@ -59,11 +59,11 @@ class _ContactTileState extends State<ContactTile> {
           IconButton(
             onPressed: _toggleFavourite,
             icon: _isFavourite == 1
-                ? Icon(Icons.star, color: Colors.amber)
-                : Icon(Icons.star_border_outlined),
+                ?const Icon(Icons.star, color: Colors.amber)
+                :const Icon(Icons.star_border_outlined),
           ),
           widget.isCallFromFavourite
-              ? SizedBox()
+              ?const SizedBox()
               : IconButton(
                   onPressed: widget.onTap,
                   icon: Icon(Icons.navigate_next_outlined),

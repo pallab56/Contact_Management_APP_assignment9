@@ -25,22 +25,22 @@ class _SettingsScreenState extends State<SettingsScreen> {
     return Expanded(
       child: ListView(
         children: [
-          ListTile(
-            title: Text(
+           ListTile(
+            title:const Text(
               'Theme',
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
-            subtitle:isSwitchOn?Text(
+            subtitle:isSwitchOn? Text(
               'Dark',
               style: TextStyle(color: Colors.black.withAlpha(100)),
             )  :Text(
               'Light',
               style: TextStyle(color: Colors.black.withAlpha(100)),
             ),
-            leading: Icon(Icons.color_lens_outlined),
+            leading:const Icon(Icons.color_lens_outlined),
           ),
           ListTile(
-            title: Text(
+            title:const  Text(
               'Change Theme',
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
@@ -48,11 +48,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
               'Light/ Dark',
               style: TextStyle(color: Colors.black.withAlpha(100)),
             ),
-            leading: Icon(Icons.palette_outlined),
+            leading:const Icon(Icons.palette_outlined),
             trailing: Switch(
               inactiveTrackColor:  Colors.deepPurpleAccent,
               inactiveThumbColor: Colors.white,
-              trackOutlineWidth: MaterialStatePropertyAll(0),
+              
               
               overlayColor: WidgetStatePropertyAll(Colors.blue),
               value: isSwitchOn,
@@ -65,7 +65,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             ),
           ),
           Divider(color: Colors.black.withAlpha(25),thickness: 2,),
-          ListTile(
+         const ListTile(
             title: Text(
               'About App',
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
@@ -74,13 +74,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
             leading: Icon(Icons.error_outline),
           ),
           Divider(color: Colors.black.withAlpha(25),thickness: 2,),
-          ListTile(
-            title: Text(
+           ListTile(
+            title:const Text(
               'Version',
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
             
-            leading: Icon(Icons.access_time),
+            leading:const Icon(Icons.access_time),
             trailing: Text('1.1.2',style: TextStyle(
               fontSize: 17,
               fontWeight: FontWeight.w600,

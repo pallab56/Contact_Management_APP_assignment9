@@ -36,10 +36,10 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('My Contacts'),
+        title:const Text('My Contacts'),
         actions: [
           // IconButton(onPressed: () {}, icon: Icon(Icons.search_rounded)),
-          IconButton(onPressed: () {}, icon: Icon(Icons.more_vert)),
+          IconButton(onPressed: () {}, icon:const Icon(Icons.more_vert)),
         ],
       ),
       drawer: _drawer(context),
@@ -51,7 +51,7 @@ class _HomeScreenState extends State<HomeScreen> {
           _refreshContacts();
         },
         backgroundColor: Color(0XFF5555d9),
-        child: Icon(Icons.add, color: Colors.white),
+        child:const Icon(Icons.add, color: Colors.white),
       ),
     );
   }
@@ -69,7 +69,7 @@ class _HomeScreenState extends State<HomeScreen> {
         future: _contacctFuture,
         builder: (context, AsyncSnapshot<List<ContactModel>> snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return CircularProgressIndicator();
+            return const CircularProgressIndicator();
           }
           if (snapshot.hasError) {
             return Center(child: Text(snapshot.error.toString()));
@@ -96,12 +96,12 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ),
                 ),
-                SizedBox(height: 12),
+                const SizedBox(height: 12),
                 RichText(
                   textAlign: TextAlign.center,
                   text: TextSpan(
                     children: [
-                      TextSpan(
+                     const TextSpan(
                         text: 'No Contacts yet!\n',
                         style: TextStyle(
                           color: Colors.black,
@@ -135,7 +135,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     )
                     .toList();
           if (filteredContacts.isEmpty) {
-            return Center(child: Text('Nothing Matched'));
+            return const Center(child: Text('Nothing Matched'));
           }
           return ListView.builder(
             itemCount: filteredContacts.length,
@@ -175,7 +175,7 @@ class _HomeScreenState extends State<HomeScreen> {
         },
         decoration: InputDecoration(
           hintText: 'Search contacts...',
-          suffixIcon: Icon(Icons.search_rounded),
+          suffixIcon:const Icon(Icons.search_rounded),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),
             borderSide: BorderSide(color: Colors.deepPurple.shade700, width: 2),
@@ -205,13 +205,13 @@ class _HomeScreenState extends State<HomeScreen> {
                 children: [
                   Padding(
                     padding: const EdgeInsets.only(left: 10),
-                    child: CircleAvatar(
+                    child:const CircleAvatar(
                       backgroundColor: Colors.transparent,
                       child: Icon(Icons.groups, size: 42, color: Colors.white),
                     ),
                   ),
                   SizedBox(height: MediaQuery.sizeOf(context).height * .02),
-                  Text(
+                  const Text(
                     'My Contacts',
                     style: TextStyle(
                       color: Colors.white,
@@ -219,7 +219,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       fontWeight: FontWeight.w600,
                     ),
                   ),
-                  Text(
+                  const Text(
                     "Tracks your Friends easily",
                     style: TextStyle(
                       color: Colors.white60,
@@ -231,12 +231,12 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
           ),
-          SizedBox(height: 8),
+          const SizedBox(height: 8),
           ListTile(
             selected: selectedIndex == 0,
             selectedTileColor: Colors.blueAccent[100]!.withAlpha(70),
 
-            leading: Icon(Icons.people),
+            leading:const Icon(Icons.people),
             title: Text('My Contacts'),
             onTap: () {
               setState(() {
@@ -246,7 +246,7 @@ class _HomeScreenState extends State<HomeScreen> {
             },
           ),
           ListTile(
-            leading: Icon(Icons.star_outlined),
+            leading:const Icon(Icons.star_outlined),
             title: Text('Favourites'),
             selected: selectedIndex == 1,
             selectedTileColor: Colors.blueAccent[100]!.withAlpha(70),
@@ -259,8 +259,8 @@ class _HomeScreenState extends State<HomeScreen> {
             },
           ),
           ListTile(
-            leading: Icon(Icons.diamond),
-            title: Text('Add Contacts'),
+            leading:const Icon(Icons.diamond),
+            title:const Text('Add Contacts'),
             selected: selectedIndex == 2,
             selectedTileColor: Colors.blueAccent[100]!.withAlpha(70),
 
@@ -271,10 +271,10 @@ class _HomeScreenState extends State<HomeScreen> {
               Navigator.pop(context);
             },
           ),
-          Divider(),
+          const Divider(),
           ListTile(
-            leading: Icon(Icons.error),
-            title: Text('About App'),
+            leading:const Icon(Icons.error),
+            title:const Text('About App'),
             selected: selectedIndex == 3,
             selectedTileColor: Colors.blueAccent[100]!.withAlpha(70),
             onTap: () {
@@ -285,8 +285,8 @@ class _HomeScreenState extends State<HomeScreen> {
             },
           ),
           ListTile(
-            leading: Icon(Icons.settings),
-            title: Text('Settings'),
+            leading:const Icon(Icons.settings),
+            title: const Text('Settings'),
             selected: selectedIndex == 4,
             selectedTileColor: Colors.blueAccent[100]!.withAlpha(70),
             onTap: () {
@@ -297,8 +297,8 @@ class _HomeScreenState extends State<HomeScreen> {
             },
           ),
           ListTile(
-            leading: Icon(Icons.logout),
-            title: Text('Logout'),
+            leading:const Icon(Icons.logout),
+            title:const Text('Logout'),
             selected: selectedIndex == 5,
             selectedTileColor: Colors.blueAccent[100]!.withAlpha(70),
             onTap: () {

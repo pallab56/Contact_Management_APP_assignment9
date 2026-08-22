@@ -41,12 +41,12 @@ class _FavouriteScreenState extends State<FavouriteScreen> {
                     color: Colors.black.withAlpha(150),
                   ),
                 ),
-                SizedBox(height: 20),
+               const  SizedBox(height: 20),
                 RichText(
                   textAlign: TextAlign.center,
                   text: TextSpan(
                     children: [
-                      TextSpan(
+                     const TextSpan(
                         text: 'No Favourite Contacts yet!\n',
                         style: TextStyle(
                           color: Colors.black,
