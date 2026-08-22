@@ -24,7 +24,7 @@ class CustomButton extends StatelessWidget {
         ),
         onPressed: ontap,
 
-        child:isEdit? Center(child: Icon(Icons.check_outlined,size: 18,color: Colors.white,),):Text(
+        child:isEdit? Center(child:const Icon(Icons.check_outlined,size: 18,color: Colors.white,),): Text(
           title,
           style: TextStyle(
             fontSize: 18,

@@ -197,7 +197,7 @@ class _ContactDetailScreenState extends State<ContactDetailScreen> {
         SizedBox(height: MediaQuery.sizeOf(context).height * .02),
         Text(
           data.name,
-          style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+          style:const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
         ),
       ],
     );
@@ -221,10 +221,10 @@ class _ContactDetailScreenState extends State<ContactDetailScreen> {
             ListTile(
               title: Text(
                 data.number,
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                style:const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
-              subtitle: Text('Mobile', style: TextStyle(fontSize: 16)),
-              leading: CircleAvatar(
+              subtitle:const Text('Mobile', style: TextStyle(fontSize: 16)),
+              leading:const CircleAvatar(
                 backgroundColor: Colors.transparent,
                 child: Icon(Icons.phone_outlined),
               ),
@@ -233,10 +233,10 @@ class _ContactDetailScreenState extends State<ContactDetailScreen> {
             ListTile(
               title: Text(
                 data.email,
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                style:const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
-              subtitle: Text('Email', style: TextStyle(fontSize: 16)),
-              leading: CircleAvatar(
+              subtitle:const Text('Email', style: TextStyle(fontSize: 16)),
+              leading:const CircleAvatar(
                 backgroundColor: Colors.transparent,
                 child: Icon(Icons.email_outlined),
               ),
@@ -245,10 +245,10 @@ class _ContactDetailScreenState extends State<ContactDetailScreen> {
             ListTile(
               title: Text(
                 data.address,
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                style:const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
-              subtitle: Text('Address', style: TextStyle(fontSize: 16)),
-              leading: CircleAvatar(
+              subtitle:const Text('Address', style: TextStyle(fontSize: 16)),
+              leading:const CircleAvatar(
                 backgroundColor: Colors.transparent,
                 child: Icon(Icons.location_on),
               ),

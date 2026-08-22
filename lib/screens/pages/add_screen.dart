@@ -28,12 +28,12 @@ class _AddScreenState extends State<AddScreen> {
       appBar: AppBar(
         title: Text('Add Contact'),
         actions: [
-           CircleAvatar(
+          const CircleAvatar(
                   backgroundColor: Colors.black12,
                   child: Icon(Icons.check, color: Colors.white, size: 28),
                 ),
               
-          SizedBox(width: 10),
+         const SizedBox(width: 10),
         ],
       ),
       body: _bodyUi(context),
@@ -73,27 +73,27 @@ class _AddScreenState extends State<AddScreen> {
           CustomTextField(
             label: 'Name',
             controller: nameController,
-            icon: Icon(Icons.person_outline_outlined),
+            icon:const Icon(Icons.person_outline_outlined),
           ),
 
           CustomTextField(
             label: 'Phone Number',
             controller: phoneController,
-            icon: Icon(Icons.call),
+            icon:const Icon(Icons.call),
           ),
 
           CustomTextField(
             label: 'Email',
             controller: emailController,
-            icon: Icon(Icons.mail_outline_outlined),
+            icon:const Icon(Icons.mail_outline_outlined),
           ),
 
           CustomTextField(
             label: 'Address',
             controller: addressController,
-            icon: Icon(Icons.location_on),
+            icon:const Icon(Icons.location_on),
           ),
-          SizedBox(height: MediaQuery.sizeOf(context).height * 0.02),
+           SizedBox(height: MediaQuery.sizeOf(context).height * 0.02),
           CustomButton(
             title: 'Save Contact',
             ontap: () async {

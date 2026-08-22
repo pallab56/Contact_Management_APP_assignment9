@@ -39,15 +39,15 @@ class _EditContactScreenState extends State<EditContactScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Edit Contact'),
+        title:const Text('Edit Contact'),
         actions: [
           isEdited
-              ? CircleAvatar(
+              ?const CircleAvatar(
                   backgroundColor: Colors.black12,
                   child: Icon(Icons.check, color: Colors.white, size: 18),
                 )
-              : Icon(Icons.edit_square),
-          SizedBox(width: 10),
+              :const Icon(Icons.edit_square),
+          const SizedBox(width: 10),
         ],
       ),
       body: _bodyUi(context),
@@ -85,35 +85,35 @@ class _EditContactScreenState extends State<EditContactScreen> {
           CustomTextField(
             label: 'Name',
             controller: nameController,
-            icon: Icon(Icons.person_outline_outlined),
+            icon:const Icon(Icons.person_outline_outlined),
           ),
 
           CustomTextField(
             label: 'Phone Number',
             controller: phoneController,
-            icon: Icon(Icons.call),
+            icon:const Icon(Icons.call),
           ),
 
           CustomTextField(
             label: 'Email',
             controller: emailController,
-            icon: Icon(Icons.mail_outline_outlined),
+            icon:const Icon(Icons.mail_outline_outlined),
           ),
 
           CustomTextField(
             label: 'Address',
             controller: addressController,
-            icon: Icon(Icons.location_on),
+            icon:const Icon(Icons.location_on),
           ),
 
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              Text(
+            const  Text(
                 'Do you want it to be favourite',
                 style: TextStyle(color: Colors.black, fontSize: 12),
               ),
-              SizedBox(width: 5),
+             const SizedBox(width: 5),
               Checkbox(
                 value: wantToFavourite,
                 onChanged: (onChanged) {
